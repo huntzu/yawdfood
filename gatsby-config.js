@@ -21,19 +21,33 @@ module.exports = {
     title: 'Yawdfood',
     description: 'Foodways digital repository',
     siteUrl: 'https://yawdfood.com',
+    heroImage: './static/images/hero-image.jpg',
     image: '/images/share.jpg',
     menuLinks: [
       {
-        name: 'Home',
+        name: 'Yawdfood',
         slug: '/',
+        subtext: 'Food, Stories, and Culture'
+      },
+      {
+        name: 'Search',
+        slug: '',
+        subtext: ''
+      },
+      {
+        name: 'Food',
+        slug: '',
+        subtext: ''
       },
       {
         name: 'About',
         slug: '/about/',
+        subtext: ''
       },
       {
         name: 'Contact',
         slug: '/contact/',
+        subtext: ''
       },
     ],
     postsPerFirstPage: 7,

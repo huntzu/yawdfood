@@ -17,6 +17,7 @@ const Nav = styled.nav`
   ul {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   li {
@@ -26,6 +27,7 @@ const Nav = styled.nav`
       position: relative;
       margin: 0;
       flex-basis: 100%;
+      font-size: 2em;
     }
   }
 
@@ -38,6 +40,12 @@ const Nav = styled.nav`
     &:hover {
       color: white;
     }
+  }
+
+  div {
+    color: #aaa;
+    margin: 3px 7px;
+    font-size: .4em;
   }
 `
 
@@ -56,6 +64,7 @@ const Menu = () => {
               <Link to={link.slug} activeStyle={activeLinkStyle}>
                 {link.name}
               </Link>
+              {link.subtext && <div>{link.subtext}</div>}
             </li>
           ))}
         </ul>
