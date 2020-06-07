@@ -36,7 +36,7 @@ module.exports = {
       },
       {
         name: 'Food',
-        slug: '',
+        slug: '/food/',
         subtext: ''
       },
       {
