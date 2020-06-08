@@ -70,17 +70,10 @@ const SearchContainer = () => {
     searchQuery: ''
   })
 
-  console.log(`Environment: ${process.env.NODE_ENV}`)
-  console.log(`Space ID: ${process.env.GATSBY_SPACE_ID}`)
-  console.log(`Access Token: ${process.env.GATSBY_ACCESS_TOKEN}`)
-
-  const spaceId = process.env.GATSBY_SPACE_ID
-  const accessToken = process.env.GATSBY_ACCESS_TOKEN
-
-  console.log(`accessToken: ${accessToken}`)
-
   const {posts, search, searchResults, searchQuery, isLoading } = postData
   const basePath = '/'
+  const spaceId = process.env.GATSBY_SPACE_ID
+  const accessToken = process.env.GATSBY_ACCESS_TOKEN
   const client = createClient({
     space: spaceId,
     accessToken: accessToken
