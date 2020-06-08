@@ -1,14 +1,68 @@
 import React, { useState, useEffect } from 'react'
 import * as JsSearch from 'js-search'
 import { createClient } from 'contentful'
-import CardList from '../components/CardList'
-import Card from '../components/Card'
 import SearchCard from '../components/SeachCard'
 import Container from '../components/Container'
+import styled from '@emotion/styled'
+
+const Form = styled.form`
+  max-width: ${props => props.theme.sizes.maxWidthCentered};
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  input,
+  textarea {
+    font-family: inherit;
+    font-size: inherit;
+    background: ${props => props.theme.colors.tertiary};
+    color: ${props => props.theme.colors.text};
+    border-radius: 2px;
+    padding: 1em;
+    &::-webkit-input-placeholder {
+      color: gray;
+    }
+    &::-moz-placeholder {
+      color: gray;
+    }
+    &:-ms-input-placeholder {
+      color: gray;
+    }
+    &:-moz-placeholder {
+      color: gray;
+    }
+    &:required {
+      box-shadow: none;
+    }
+  }
+  &::before {
+    content: '';
+    background: black;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: 0.2s all;
+    opacity: ${props => (props.overlay ? '.8' : '0')};
+    visibility: ${props => (props.overlay ? 'visible' : 'hidden')};
+  }
+`
+
+const Search = styled.textarea`
+  margin: 0 0 1em 0;
+  width: 100%;
+  @media (min-width: ${props => props.theme.responsive.small}) {
+    width: 100%;
+  }
+`
 
 const SearchContainer = () => {
   const [postData, setPostData] = useState({
     posts: [],
+    foundPosts: [],
     search: [],
     searchResults: [],
     isLoading: true,
@@ -16,7 +70,7 @@ const SearchContainer = () => {
     searchQuery: ''
   })
 
-  const {posts, search, searchQuery, isLoading } = postData
+  const {posts, search, searchResults, searchQuery, isLoading } = postData
   const basePath = '/'
 
   useEffect(() => {
@@ -32,6 +86,7 @@ const SearchContainer = () => {
       })
       .then(
         result => {
+          result.items.forEach((item, i) => { item.id = i.toString() })
           setPostData({
             isLoading: false,
             posts: result.items
@@ -48,12 +103,11 @@ const SearchContainer = () => {
   }, [isLoading])
 
   const rebuildIndex = () => {
-    const dataToSearch = new JsSearch.Search('title')
+    const dataToSearch = new JsSearch.Search('id')
     dataToSearch.indexStrategy = new JsSearch.PrefixIndexStrategy()
     dataToSearch.sanitizer = new JsSearch.LowerCaseSanitizer()
-    dataToSearch.searchIndex = new JsSearch.TfIdfSearchIndex('title')
     
-    dataToSearch.addIndex('body')
+    dataToSearch.addIndex(['fields', 'title'])
     dataToSearch.addDocuments(posts)
 
     setPostData({
@@ -65,12 +119,10 @@ const SearchContainer = () => {
 
   const searchData = e => {
     const queryResult = search.search(e.target.value)
-    const currentPosts = e.target.value === '' ? posts : queryResult
     setPostData({
       ...postData,
       searchQuery: e.target.value,
-      searchResults: queryResult,
-      foundPosts: currentPosts
+      searchResults: e.target.value === '' ? posts : queryResult
     })
   }
 
@@ -78,20 +130,20 @@ const SearchContainer = () => {
 
   return (
     <div>
-      <form onSubmit={e => handleSubmit(e)}>
-        <input
+      <Form onSubmit={e => handleSubmit(e)}>
+        <Search
           id="Search"
           value={searchQuery}
           onChange={e => searchData(e)}
-          placeholder='Search for food'
+          placeholder='Search for food by name'
         />
-      </form>
+      </Form>
       <Container>
-        <CardList>
-          { posts && posts.map((post) => (
+        <ul>
+          {searchResults && searchResults.map((post) => (
             <SearchCard key={post.sys.id} post={post} basePath={basePath} />
           ))}
-        </CardList>
+        </ul>
       </Container>
     </div>
   )

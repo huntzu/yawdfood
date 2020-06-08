@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         name: 'Search',
-        slug: '',
+        slug: '/search/',
         subtext: ''
       },
       {
