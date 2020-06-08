@@ -70,15 +70,23 @@ const SearchContainer = () => {
     searchQuery: ''
   })
 
+  console.log(`Environment: ${process.env.NODE_ENV}`)
+  console.log(`Space ID: ${process.env.SPACE_ID}`)
+  console.log(`Access Token: ${process.env.ACCESS_TOKEN}`)
+
+  const spaceId = process.env.SPACE_ID
+  const accessToken = process.env.ACCESS_TOKEN
+
+  console.log(`accessToken: ${accessToken}`)
+
   const {posts, search, searchResults, searchQuery, isLoading } = postData
   const basePath = '/'
+  const client = createClient({
+    space: spaceId,
+    accessToken: accessToken
+  })
 
   useEffect(() => {
-    const client = createClient({
-      space: '410724wvyej4',
-      accessToken: 'gM76IGr5cKE4F166kXUCbwOzDP1k6etYJMQS2gS30SU'
-    })
-
     client
       .getEntries({
         content_type: 'post',
