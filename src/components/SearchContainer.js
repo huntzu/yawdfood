@@ -71,11 +71,11 @@ const SearchContainer = () => {
   })
 
   console.log(`Environment: ${process.env.NODE_ENV}`)
-  console.log(`Space ID: ${process.env.SPACE_ID}`)
-  console.log(`Access Token: ${process.env.ACCESS_TOKEN}`)
+  console.log(`Space ID: ${process.env.GATSBY_SPACE_ID}`)
+  console.log(`Access Token: ${process.env.GATSBY_ACCESS_TOKEN}`)
 
-  const spaceId = process.env.SPACE_ID
-  const accessToken = process.env.ACCESS_TOKEN
+  const spaceId = process.env.GATSBY_SPACE_ID
+  const accessToken = process.env.GATSBY_ACCESS_TOKEN
 
   console.log(`accessToken: ${accessToken}`)
 
