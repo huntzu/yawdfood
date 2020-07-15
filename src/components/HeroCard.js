@@ -1,11 +1,58 @@
 import React from 'react'
-import Hero from '../components/Hero'
 import { Link } from 'gatsby'
+import Img from 'gatsby-image'
+import styled from '@emotion/styled'
+
+const Wrapper = styled.section`
+  position: relative;
+  min-height: 300px;
+  height: auto;
+  @media (min-width: ${props => props.theme.responsive.small}) {
+    height: ${props => props.height || 'auto'};
+  }
+`
+const BgImg = styled(Img)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  &::before {
+    content: '';
+    background: rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+`
+
+const HeroTitle = styled.h2`
+  z-index: 2;
+  font-size: 1.5em;
+  text-transform: capitalize;
+  font-weight: 600;
+  position: absolute;
+  width: 100%;
+  max-width: ${props => props.theme.sizes.maxWidthCentered};
+  padding: 0 1rem;
+  top: 90%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+`
+
 
 const HeroCard = ({ heroTitle, basePath, height, post }) => (
-  <Link to={`${basePath}/${post.slug}/`}>
-    <Hero title={heroTitle} image={post.heroImage} height={height} />
-  </Link>
+  <Wrapper height={height}>
+    <Link to={`${post.slug}/`}>
+      <BgImg fluid={post.heroImage.fluid} backgroundColor={'#eeeeee'} />
+      <HeroTitle>{heroTitle}</HeroTitle>
+    </Link>
+  </Wrapper>
 )
 
 export default HeroCard

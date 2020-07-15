@@ -27,17 +27,17 @@ module.exports = async ({ graphql, actions }) => {
     })
   })
 
-  // Create a page containing all "posts" and paginate.
+  // Create a page containing all food "posts" and paginate.
   paginate({
     createPage,
     component: path.resolve(`./src/templates/posts.js`),
     items: posts,
     itemsPerFirstPage: config.siteMetadata.postsPerFirstPage || 7,
     itemsPerPage: config.siteMetadata.postsPerPage || 6,
-    pathPrefix: basePath,
+    pathPrefix: basePath === '/' ? `/food/` : `${basePath}/food/`,
     context: {
       basePath: basePath === '/' ? '' : basePath,
-      paginationPath: basePath === '/' ? '' : `/${basePath}`,
+      paginationPath: basePath === '/' ? `/food/` : `/${basePath}/food/`,
     },
   })
 
