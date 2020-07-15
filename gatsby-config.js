@@ -93,13 +93,13 @@ module.exports = {
       },
     },
     'gatsby-plugin-offline',
-    {
-      resolve: `gatsby-plugin-schema-snapshot`,
-      options: {
-        path: `./src/gatsby/schema/schema.gql`,
-        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-schema-snapshot`,
+    //   options: {
+    //     path: `./src/gatsby/schema/schema.gql`,
+    //     update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
+    //   },
+    // },
     'gatsby-plugin-netlify',
   ],
 }
