@@ -14,7 +14,7 @@ const Title = styled.h3`
   font-weight: 600;
 `
 
-const Tag = styled.li`
+const Location = styled.li`
   display: inline-block;
   margin: 0 0.25em 0.25em 0;
   a {
@@ -33,17 +33,19 @@ const Tag = styled.li`
   }
 `
 
-const TagList = props => {
+const LocationList = props => {
   return (
     <List>
-    <Title>Tags</Title>
-      {props.tags.map(tag => (
-        <Tag key={tag.id}>
-          <Link to={`${props.basePath}/tag/${tag.slug}/`}>{tag.title}</Link>
-        </Tag>
-      ))}
+    <Title>Locations</Title>
+    {props.locations.map(location => (
+      <Location key={location.id}>
+        <a>
+          {location.origin ? `${location.title} (origin)` : location.title}
+        </a>
+      </Location>
+    ))}
     </List>
   )
 }
 
-export default TagList
+export default LocationList

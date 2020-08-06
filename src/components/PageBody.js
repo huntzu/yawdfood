@@ -95,12 +95,26 @@ const Body = styled.div`
     }
   }
 `
+const Wrapper = styled.div`
+  width: 100%;
+  margin: 0 auto 1em auto;
+  max-width: ${props => props.theme.sizes.maxWidthCentered};
+`
 
-const PageBody = props => {
+const Title = styled.div`
+  font-size: 1rem;
+  margin: 1em 0;
+  font-weight: 600;
+`
+
+const PageBody = ({ title, body }) => {
   return (
-    <Body
-      dangerouslySetInnerHTML={{ __html: props.body.childMarkdownRemark.html }}
-    />
+    <Wrapper>
+      {title && <Title>{title}</Title>}
+      <Body
+        dangerouslySetInnerHTML={{ __html: body.childMarkdownRemark.html }}
+      />
+    </Wrapper>
   )
 }
 
